@@ -22,7 +22,7 @@ There is a `UICollectionViewController` and `UITableViewController` subclass eac
 
 In each of these subclasses, they access the image within a diffable data source cell registration. Because it uses a diffable data source, it needs an object that is the basis of the snapshots. In this case, they call it `Item` and it looks like this:
 
-```
+```swift
 class Item: Hashable {
     
     var image: UIImage!
@@ -46,7 +46,7 @@ class Item: Hashable {
 
 That's right, it's a class that has a `var image: UIImage!`. Within both the collection and table view controllers, they instantiates the `Item`s with a placeholder image which is initially shown. Later, we will asynchronously fetch the correct image at the URL and replacing that image. We'll be taking a look at the `UITableViewController` version that does that when it makes the cell registration for the data source.
 
-```
+```swift
 dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView) {
     (tableView: UITableView, indexPath: IndexPath, item: Item) -> UITableViewCell? in
     let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
@@ -77,7 +77,7 @@ In the closure, when the image comes back from an undetermined timeframe, we che
 
 The `ImageCache` is an object that holds onto an `NSCache` with the key being the `NSURL` and the value being `UIImage`. The `ImageCache` also has a Dictionary where the key is `NSURL` again but the value is an Array of closures that has the arguments of `(Item, UIImage?)` and returns `Void`. They look like this: 
 
-```
+```swift
 private let cachedImages = NSCache<NSURL, UIImage>()
 private var loadingResponses = [NSURL: [(Item, UIImage?) -> Swift.Void]]()
 ```
@@ -86,7 +86,7 @@ There is a simple function for returning an optional image from the cache using 
 
 The meat of the work is done in this big function:
 
-```
+```swift
 final func load(url: NSURL, item: Item, completion: @escaping (Item, UIImage?) -> Swift.Void) {
     // Check for a cached image.
     if let cachedImage = image(url: url) {
@@ -133,7 +133,7 @@ Moving on, we use the `ImageURLProtocol.urlSession()` (more on this later) data 
 
 Did you know you can sort of override `URLSession` to have the same API but act differently? You need to create something that adheres to the [`URLProtocol`](https://developer.apple.com/documentation/foundation/urlprotocol). This is largely done in this protocol function:
 
-```
+```swift
 final override func startLoading() {
     guard let reqURL = request.url, let urlClient = client else {
         return
@@ -158,7 +158,7 @@ What is happening here is that we make sure we have a url and client but then se
 
 This `cancelledOrComplete` is used in case the data task is cancelled.
 
-```
+```swift
 final override func stopLoading() {
     ImageURLProtocol.queue.async {
         if self.cancelledOrComplete == false, let cancelBlock = self.block {
