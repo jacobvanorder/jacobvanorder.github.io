@@ -4,7 +4,7 @@ title: Structured Concurrency Conversion (Part 2)
 date: 2025-05-03 13:54 -0500
 ---
 
-Alright, in [part 1](structured-concurrency-conversion-part-1), I laid out the code structure is for Apple's [Async Image Loading](https://developer.apple.com/documentation/uikit/asynchronously-loading-images-into-table-and-collection-views) sample code. In this session, we'll update the settings of the project. 
+Alright, in [part 1](/structured-concurrency-conversion-part-1), I laid out the code structure is for Apple's [Async Image Loading](https://developer.apple.com/documentation/uikit/asynchronously-loading-images-into-table-and-collection-views) sample code. In this session, we'll update the settings of the project. 
 
 ## Updating the Project 
 
@@ -32,4 +32,4 @@ Well, let's fix that [here](https://github.com/jacobvanorder/StructuredConcurren
 
 ## Ready to Go
 
-With those changes done, we are ready to make our modern changes so look for that in part 3 and 4.
+With those changes done, we are ready to make our modern changes so look for that in [part 3](/structured-concurrency-conversion-part-3) and [part 4](/structured-concurrency-conversion-part-4).

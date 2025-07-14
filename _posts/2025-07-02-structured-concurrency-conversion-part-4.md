@@ -4,7 +4,7 @@ title: Structured Concurrency Conversion (Part 4)
 date: 2025-07-02 18:18 -0500
 ---
 
-To catch you up, in [part 1](structured-concurrency-conversion-part-1), I laid out the code structure for Apple's [Async Image Loading](https://developer.apple.com/documentation/uikit/asynchronously-loading-images-into-table-and-collection-views) sample code. In [part 2](structured-concurrency-conversion-part-2), I fixed up the Xcode project—something you'll need to do when starting a new project because Swift 6 and strict checking aren't on by default (as of June 2025). Today, we'll actually convert the dispatch and closure-based code to use Actors and async/await. In [part 3](structured-concurrency-conversion-part-3) we converted the `ImageCache`, responsible for fetching and caching image data to an `Actor` in order to safely use and mutate across contexts. 
+To catch you up, in [part 1](/structured-concurrency-conversion-part-1), I laid out the code structure for Apple's [Async Image Loading](https://developer.apple.com/documentation/uikit/asynchronously-loading-images-into-table-and-collection-views) sample code. In [part 2](/structured-concurrency-conversion-part-2), I fixed up the Xcode project—something you'll need to do when starting a new project because Swift 6 and strict checking aren't on by default (as of June 2025). Today, we'll actually convert the dispatch and closure-based code to use Actors and async/await. In [part 3](/structured-concurrency-conversion-part-3) we converted the `ImageCache`, responsible for fetching and caching image data to an `Actor` in order to safely use and mutate across contexts. 
 
 Today, we are going to finish the last bit of infrastructure that will get the images for the Table/Collection Views. 
 
@@ -168,6 +168,10 @@ I found this when dealing with something similar with a SwiftUI's view and found
 This is my final piece of the puzzle to change the Apple code over to something that is more modern. Ultimately, because `URLProtocol` is a byproduct of a different era of Apple development, it is too incompatible with Swift strict concurrency and a different approach needs to be made. 
 
 So, that wraps this all up! If you see any issues or have any corrections, [please reach out](mailto:jacob@sushigrass.com). I'd like to send a very special thanks out to [Matt Massicotte](https://www.massicotte.org) for sanity-checking early versions of this series of blog posts. 
+
+## What's Next?
+
+I have some ideas about where to take this. How would I use the same code in SwiftUI? What impact do the changes in Swift 6.2 have towards this code base? Anything else you'd like to see? Reach out on [Mastodon](https://mastodon.social/@jacobvo).
 
 
 

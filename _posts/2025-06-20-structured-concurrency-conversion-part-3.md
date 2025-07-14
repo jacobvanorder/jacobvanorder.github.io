@@ -4,7 +4,7 @@ title: Structured Concurrency Conversion (Part 3)
 date: 2025-07-01 10:49 -0500
 ---
 
-Alright, in [part 1](structured-concurrency-conversion-part-1), I laid out the code structure is for Apple's [Async Image Loading](https://developer.apple.com/documentation/uikit/asynchronously-loading-images-into-table-and-collection-views) sample code. In [part 2](structured-concurrency-conversion-part-2), I fixed up the Xcode project—something you'll need to do when starting a new project because Swift 6 and strict checking aren't on by default (as of June 2025). Today, we'll actually convert the dispatch and closure-based code to use Actors and async/await.
+Alright, in [part 1](/structured-concurrency-conversion-part-1), I laid out the code structure is for Apple's [Async Image Loading](https://developer.apple.com/documentation/uikit/asynchronously-loading-images-into-table-and-collection-views) sample code. In [part 2](/structured-concurrency-conversion-part-2), I fixed up the Xcode project—something you'll need to do when starting a new project because Swift 6 and strict checking aren't on by default (as of June 2025). Today, we'll actually convert the dispatch and closure-based code to use Actors and async/await.
 
 #### A Disclosure
 
@@ -128,4 +128,4 @@ We have some optimizations done here where we are no longer holding onto an arra
 
 From a code organization standpoint, we had to shift some blocks of the code around now that we were no longer capturing functionality and storing it for later. Instead, if we have a loading task in progress, we ask subsequent requesters to wait for the first call. 
 
-Coming up in Part 4, we'll be focusing on that URLProtocol subclass.
+Coming up in [part 4](/structured-concurrency-conversion-part-4), we'll be focusing on that URLProtocol subclass.
