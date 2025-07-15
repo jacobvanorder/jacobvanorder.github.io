@@ -30,19 +30,19 @@ Let's [roll with it](https://github.com/jacobvanorder/StructuredConcurrencyAsync
 
  Okay, the properties are out of the way so let's get to the meat of it. 
 
- ### Functions
+### Functions
 
- Our first function follows what we had before with a public interface for our `NSCache`. This works, though, because well, _"You can add, remove, and query items in the cache from different threads without having to lock the cache yourself."_. If you say so! We are annotating it as `@MainActor` for reasoned explained above.
+Our first function follows what we had before with a public interface for our `NSCache`. This works, though, because well, _"You can add, remove, and query items in the cache from different threads without having to lock the cache yourself."_. If you say so! We are annotating it as `@MainActor` for reasoned explained above.
 
- #### Load URL
+#### Load URL
 
- The real work gets done in `final func load(url: URL) async throws -> UIImage`. You'll notice that we changed the [signature](https://github.com/jacobvanorder/StructuredConcurrencyAsynchronouslyLoadingImagesIntoTableAndCollectionViews/commit/6a24b8f1a45fbae6b13a2ea1e0110e0c5cff8e48#diff-5d11c3dfe5f4c8ab2ce5f1c202dc079762f709dbb4a243d9193489eb77b721d7R34) to take in a `URL` but no `Item` as I don't want to tie this utilitarian functionality to a specific model object type. Also, we change the completion handler to something that is `async`, `throws` an error, and returns `UIImage`. Before, the function gave no indication that something went wrong, it just returned `nil` for the image which is better than returning the placeholder image, I guess. 
+The real work gets done in `final func load(url: URL) async throws -> UIImage`. You'll notice that we changed the [signature](https://github.com/jacobvanorder/StructuredConcurrencyAsynchronouslyLoadingImagesIntoTableAndCollectionViews/commit/6a24b8f1a45fbae6b13a2ea1e0110e0c5cff8e48#diff-5d11c3dfe5f4c8ab2ce5f1c202dc079762f709dbb4a243d9193489eb77b721d7R34) to take in a `URL` but no `Item` as I don't want to tie this utilitarian functionality to a specific model object type. Also, we change the completion handler to something that is `async`, `throws` an error, and returns `UIImage`. Before, the function gave no indication that something went wrong, it just returned `nil` for the image which is better than returning the placeholder image, I guess. 
 
- Let's get to the meat of the function!
+Let's get to the meat of the function!
 
 I'm actually going to defer my explaination of the `defer` to the end. Moving on…
 
- After the `defer`, the first step is to check the cache using the function outlined above and returned the cached image if there is one.
+After the `defer`, the first step is to check the cache using the function outlined above and returned the cached image if there is one.
 
 ```swift
         // Check for a cached image.
@@ -52,9 +52,9 @@ I'm actually going to defer my explaination of the `defer` to the end. Moving on
 ```
 We need to `await` because we are changing contexts between our Actor and the `@MainActor`. Not a huge deal as `NSCache` is safe and our function is `async` anyway.
 
- Remember that Dictionary where the key was the `NSURL` and the value was a `Task`? Time to shine `loadingResponses`!
+Remember that Dictionary where the key was the `NSURL` and the value was a `Task`? Time to shine `loadingResponses`!
 
- ```swift
+```swift
         // In case there are more than one requestor for the image, we wait for the previous request and
         // return the image (or throw)
         if let previousTask = loadingResponses[url] {
