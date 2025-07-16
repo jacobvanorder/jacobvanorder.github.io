@@ -181,5 +181,5 @@ Okay, we have three pieces that need to be addressed.
 
 In the following parts of this conversion, I'll be working from the bottom of this list up to the table/collection view. As a bonus, I'll be using this modern mechanism to drive a SwiftUI equivalent view. Up next is [part 2](/structured-concurrency-conversion-part-2)!
 
-[^1] Normally, I would not dunk on someone else's code but Apple should really know better here.  
-[^2] Apple missed a protocol function call of `func urlProtocol(_ protocol: URLProtocol, didReceive response: URLResponse, cacheStoragePolicy policy: URLCache.StoragePolicy)` before calling `func urlProtocol(_ protocol: URLProtocol, didLoad data: Data)`. With that missing, the app would crash when I later translate over to Structured Concurrency. Fun!
+[^1]: Normally, I would not dunk on someone else's code but Apple should really know better here.  
+[^2]: Apple missed a protocol function call of `func urlProtocol(_ protocol: URLProtocol, didReceive response: URLResponse, cacheStoragePolicy policy: URLCache.StoragePolicy)` before calling `func urlProtocol(_ protocol: URLProtocol, didLoad data: Data)`. With that missing, the app would crash when I later translate over to Structured Concurrency. Fun!
