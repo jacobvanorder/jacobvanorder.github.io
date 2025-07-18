@@ -8,6 +8,8 @@ To catch you up, in [part 1](/structured-concurrency-conversion-part-1), I laid 
 
 Today, we are going to finish the last bit of infrastructure that will get the images for the Table/Collection Views. 
 
+Again, my code is located [here](https://github.com/jacobvanorder/StructuredConcurrencyAsynchronouslyLoadingImagesIntoTableAndCollectionViews).
+
 ## iOS 2 was a Long Time Ago
 
 [iPhoneOS 2.0](https://en.wikipedia.org/wiki/IPhone_OS_2) was released on July 11, 2008 which was 17 years ago. 
