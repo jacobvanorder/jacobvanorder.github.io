@@ -6,6 +6,8 @@ date: 2025-07-01 10:49 -0500
 
 Alright, in [part 1](/structured-concurrency-conversion-part-1), I laid out the code structure is for Apple's [Async Image Loading](https://developer.apple.com/documentation/uikit/asynchronously-loading-images-into-table-and-collection-views) sample code. In [part 2](/structured-concurrency-conversion-part-2), I fixed up the Xcode project—something you'll need to do when starting a new project because Swift 6 and strict checking aren't on by default (as of June 2025). Today, we'll actually convert the dispatch and closure-based code to use Actors and async/await.
 
+Just as a reminder my code is located [here](https://github.com/jacobvanorder/StructuredConcurrencyAsynchronouslyLoadingImagesIntoTableAndCollectionViews).
+
 #### A Disclosure
 
 Before we start, I want to reference back to Swift's release in 2014. There was a tendency for developers with years of Objective-C experience to write Swift code using the same patterns, which often resulted in the fuzzy, subjective judgment that the code wasn't "Swifty" enough. Something similar is happening again with Structured Concurrency. After years of writing code that explicitly manages threading and handles locks, we now have a handy tool that allows us to catch potential data races before compilation. However, as we learn this new approach, our code might initially mimic older patterns to some degree. The reason I mention this is if you squint at the old code in the exercise, you should be able to see how it translates to something more modern. The underlying patterns and structure are somewhat present, which might help you bridge from the old way of doing things to the new, even if it doesn't fully embrace all the new paradigm has to offer.
